@@ -1,16 +1,27 @@
 {
-  "name": "NextJs",
+  "name": "nextjs",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolitacon2012/websiteRemakeTategaki.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolitacon2012/websiteRemakeTategaki/issues"
+  },
+  "homepage": "https://github.com/lolitacon2012/websiteRemakeTategaki#readme",
   "dependencies": {
+    "isomorphic-unfetch": "^2.1.1",
     "next": "^6.1.2",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0"
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1"
   }
 }
