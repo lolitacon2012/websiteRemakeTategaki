@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
-const Navbar = () => (
-  <nav className="navbar navbar-expand navbar-dark bg-dark mb-4 navbar-bottom">
+const Navbar = ({isBottom}) => (
+  <div>
+  <div className={"navbar navbar-expand navbar-dark bg-dark mb-4" + (isBottom ? " navbar-bottom" : "")}>
     <div className="container">
-      <a className="navbar-brand" href="#">BitzPrice</a>
+      <a className="navbar-brand" href="#">Kannagi Peekumii</a>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
@@ -15,7 +16,13 @@ const Navbar = () => (
         </ul>
       </div>
     </div>
-  </nav>
+  </div>
+  <style jsx>{`
+      .navbar-bottom {
+        margin: 0 !important;
+      }
+    `}</style>
+  </div>
 );
 
 export default Navbar;
