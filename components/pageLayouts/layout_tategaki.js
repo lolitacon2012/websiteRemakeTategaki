@@ -18,11 +18,12 @@ class Layout extends React.Component {
     componentDidMount() {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
-        console.log(font);
-        console.log("YESYESYES");
+        window.addEventListener("scroll", this.handleScroll);
     }
     handleScroll() {
-        const offSetY = this.wrapperContainer.current.scrollTop;
+        const doc = document.documentElement;
+        const top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+        const offSetY = top;
         this.setState({
             contentRightOffset: 0 - offSetY
         });
@@ -30,12 +31,10 @@ class Layout extends React.Component {
     }
     handleScrollViewportChange() {
         const contentWidth = this.realContainer.current.offsetWidth;
-        const contentOverflowWidth =
-            contentWidth - document.documentElement.clientWidth;
+        const contentOverflowWidth = contentWidth - window.innerWidth;
         const scrollableWidth =
             contentOverflowWidth > 0 ? contentOverflowWidth : 0;
-        const fakeContentHeight =
-            document.documentElement.clientHeight + scrollableWidth;
+        const fakeContentHeight = window.innerHeight + scrollableWidth;
         this.setState({
             fakeContentHeight
         });
@@ -49,7 +48,7 @@ class Layout extends React.Component {
                         name="viewport"
                         content="width=device-width, height=device-height initial-scale=1.0, shrink-to-fit=no"
                     />
-                    <meta charSet="utf-8" />
+                    <meta charSet="UTF-8" />
                 </Head>
                 {!isMobile && (
                     <div>
@@ -60,15 +59,11 @@ class Layout extends React.Component {
                         >
                             {this.props.children}
                         </div>
-                        <div
-                            ref={this.wrapperContainer}
-                            className="wrapper-container"
-                            onScroll={this.handleScroll}
-                        >
                             <div
+                                className="fake-container"
                                 style={{ height: this.state.fakeContentHeight }}
                             />
-                        </div>
+
                     </div>
                 )}
                 {isMobile && (
@@ -83,15 +78,14 @@ class Layout extends React.Component {
                 )}
                 <style jsx global>
                     {`
-                    @font-face {
-  font-family: 'Noto Serif Japanese';
-                    src: url('${font}') format('opentype');
-}
-
+                        @font-face {
+                            font-family: 'Noto Serif Japanese';
+                            src: url('${font}') format('opentype');
+                        }
                         html,
                         body {
-                            height: 100%;
-                            overflow: hidden;
+                            overflow-x: hidden;
+                            overflow-y: scroll;
                             margin: 0;
                             width: 100%;
                             font-family: "Noto Serif Japanese", "Helvetica", "Tahoma", "Arial",
@@ -99,6 +93,7 @@ class Layout extends React.Component {
                                 "STXihei", "冬青体", "华文细黑", "Heiti", "黑体",
                                 sans-serif;
                         }
+                        
                     `}
                 </style>
                 <style jsx>
@@ -112,18 +107,13 @@ class Layout extends React.Component {
                             top: 0;
                             bottom: 0;
                         }
-                        .wrapper-container {
-                            position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            left: 0;
-                            right: 0;
-                            overflow: scroll;
-                        }
                         .mobile-container {
                             display: flex;
                             flex-direction: column-reverse;
                             width: 100vw;
+                        }
+                        .fake-container {
+                            pointer-events: none;
                         }
                     `}
                 </style>

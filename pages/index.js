@@ -1,12 +1,12 @@
 import fetch from "isomorphic-unfetch";
 import Layout from "../components/pageLayouts/layout_tategaki";
-
+import AdaptiveContainer from "../components/paseSections/adaptiveContainer";
 import Prices from "../components/prices";
 
 const Index = props => (
     <div>
         <Layout>
-            <div className="reversed-column">
+            {/* <div className="reversed-column">
                 <p>Area 6</p>
             </div>
             <div className="reversed-column">
@@ -20,25 +20,23 @@ const Index = props => (
             </div>
             <div className="reversed-column">
                 <p>Area 2</p>
-            </div>
-            <div className="reversed-column">
-                <p>
-                    真草千字文　勅員外散騎侍郎周興嗣次韻。 天地玄黄。宇宙洪荒。
-                    天地は玄黄、宇宙は洪荒なり。
-                </p>
-            </div>
+            </div> */}
+<AdaptiveContainer>
+                <p>天地玄黃、宇宙洪荒。</p>
+            </AdaptiveContainer>
         </Layout>
         <style jsx>
             {`
                 .tategaki-container {
+                    padding: 20px;
+                    background: red;
                 }
                 .tategaki-outer-container {
                 }
                 .reversed-column {
-                    writing-mode: vertical-rl;
-                    -ms-writing-mode: tb-rl;
-                    flex: 1;
-                    border: 10px solid #392827;
+                    -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
                 }
             `}
         </style>
