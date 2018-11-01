@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { isMobile } from "react-device-detect";
+import font from "../../assets/fonts/NotoSerifCJKjp-Light.otf";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +18,8 @@ class Layout extends React.Component {
     componentDidMount() {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
+        console.log(font);
+        console.log("YESYESYES")
     }
     handleScroll() {
         const offSetY = this.wrapperContainer.current.scrollTop;
@@ -39,7 +42,7 @@ class Layout extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div style={{}}>
                 <Head>
                     <title>Kannagi Peekumii</title>
                     <meta
@@ -80,12 +83,21 @@ class Layout extends React.Component {
                 )}
                 <style jsx global>
                     {`
+                    @font-face {
+  font-family: 'Noto Serif Japanese';
+                    src: url('${font}') format('opentype');
+}
+
                         html,
                         body {
                             height: 100%;
                             overflow: hidden;
                             margin: 0;
                             width: 100%;
+                            font-family: "Noto Serif Japanese", "Helvetica", "Tahoma", "Arial",
+                                "Microsoft YaHei", "微软雅黑", "SimSun", "宋体",
+                                "STXihei", "冬青体", "华文细黑", "Heiti", "黑体",
+                                sans-serif;
                         }
                     `}
                 </style>

@@ -7,22 +7,25 @@ const Index = props => (
     <div>
         <Layout>
             <div className="reversed-column">
-                <p>Area 1</p>
+                <p>Area 6</p>
+            </div>
+            <div className="reversed-column">
+                <p>Area 5</p>
+            </div>
+            <div className="reversed-column">
+                <p>Area 4</p>
+            </div>
+            <div className="reversed-column">
+                <p>Area 3</p>
             </div>
             <div className="reversed-column">
                 <p>Area 2</p>
             </div>
             <div className="reversed-column">
-                <p>Area 333333</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 333333</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 333333</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 333333</p>
+                <p>
+                    真草千字文　勅員外散騎侍郎周興嗣次韻。 天地玄黄。宇宙洪荒。
+                    天地は玄黄、宇宙は洪荒なり。
+                </p>
             </div>
         </Layout>
         <style jsx>
@@ -32,8 +35,10 @@ const Index = props => (
                 .tategaki-outer-container {
                 }
                 .reversed-column {
+                    writing-mode: vertical-rl;
+                    -ms-writing-mode: tb-rl;
                     flex: 1;
-                    width: 500px;
+                    border: 10px solid #392827;
                 }
             `}
         </style>
