@@ -21,7 +21,7 @@ const Index = props => (
             <div className="reversed-column">
                 <p>Area 2</p>
             </div> */}
-<AdaptiveContainer>
+            <AdaptiveContainer>
                 <p>天地玄黃、宇宙洪荒。</p>
             </AdaptiveContainer>
         </Layout>
@@ -35,8 +35,8 @@ const Index = props => (
                 }
                 .reversed-column {
                     -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
+                    -ms-writing-mode: tb-rl;
+                    writing-mode: vertical-rl;
                 }
             `}
         </style>

@@ -22,7 +22,8 @@ class Layout extends React.Component {
     }
     handleScroll() {
         const doc = document.documentElement;
-        const top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+        const top =
+            (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
         const offSetY = top;
         this.setState({
             contentRightOffset: 0 - offSetY
@@ -59,11 +60,10 @@ class Layout extends React.Component {
                         >
                             {this.props.children}
                         </div>
-                            <div
-                                className="fake-container"
-                                style={{ height: this.state.fakeContentHeight }}
-                            />
-
+                        <div
+                            className="fake-container"
+                            style={{ height: this.state.fakeContentHeight }}
+                        />
                     </div>
                 )}
                 {isMobile && (
