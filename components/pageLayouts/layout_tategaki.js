@@ -85,7 +85,6 @@ class Layout extends React.Component {
                         html,
                         body {
                             overflow-x: hidden;
-                            overflow-y: scroll;
                             margin: 0;
                             width: 100%;
                             font-family: "Noto Serif Japanese", "Helvetica", "Tahoma", "Arial",
@@ -93,6 +92,10 @@ class Layout extends React.Component {
                                 "STXihei", "冬青体", "华文细黑", "Heiti", "黑体",
                                 sans-serif;
                         }
+                        ::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
                         
                     `}
                 </style>
