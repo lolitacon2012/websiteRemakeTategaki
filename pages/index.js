@@ -33,7 +33,6 @@ const Index = (props) => (
     .reversed-column{
       flex: 1;
       width: 500px;
-      background: green;
     }
     `}
   </style>
