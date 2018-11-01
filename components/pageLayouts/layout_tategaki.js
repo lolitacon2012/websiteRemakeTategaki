@@ -19,7 +19,7 @@ class Layout extends React.Component {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
         console.log(font);
-        console.log("YESYESYES")
+        console.log("YESYESYES");
     }
     handleScroll() {
         const offSetY = this.wrapperContainer.current.scrollTop;

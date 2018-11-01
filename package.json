@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "sudo npm install font-spider -g",
+    "preinstall": "sudo npm install font-spider otf2ttf -g",
     "dev": "next",
     "build": "next build",
     "start": "next start",
