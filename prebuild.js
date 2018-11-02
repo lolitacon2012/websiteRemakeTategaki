@@ -30,7 +30,7 @@ var generateFinalHTML = function(finalString) {
     console.log(finalString)
     var fontmin = new Fontmin()
     .src('assets/fonts/SourceHanSerifJP-Regular.ttf')
-    .dest('assets/build')
+    .dest('build/fonts/')
     .use(Fontmin.ttf2woff({
         deflate: true           // deflate woff. default = false
     }))
