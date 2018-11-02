@@ -1,7 +1,6 @@
 import fetch from "isomorphic-unfetch";
 import Layout from "../components/pageLayouts/layout_tategaki";
 import AdaptiveContainer from "../components/paseSections/adaptiveContainer";
-import Prices from "../components/prices";
 import { getText } from "../utils/textService";
 const Index = props => (
     <div>
@@ -21,11 +20,25 @@ const Index = props => (
             <div className="reversed-column">
                 <p>Area 2</p>
             </div> */}
+
             <AdaptiveContainer>
-                <p>
-                    {getText("ok")}
-                    天地
+            <p>
+                天地玄黄、宇宙洪荒　
+                右通廣内，左達承明　
                 </p>
+                <p>
+                天地玄黄、宇宙洪荒　
+                右通広内、左達承明　
+                </p>
+                <p>
+                天地玄黄、宇宙洪荒　
+                右通广内，左达承明　
+                </p>
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <h1>
+                <ruby>千<rt>せん</rt>字<rt>じ</rt>文<rt>もん</rt></ruby>
+                </h1>
             </AdaptiveContainer>
         </Layout>
         <style jsx>

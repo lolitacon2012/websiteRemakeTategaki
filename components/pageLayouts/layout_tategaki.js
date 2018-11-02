@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { isMobile } from "react-device-detect";
-import font from "../../build/fonts/SourceHanSerifJP-Regular.woff";
+import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -79,7 +79,7 @@ class Layout extends React.Component {
                 <style jsx global>
                     {`
                         @font-face {
-                            font-family: 'Noto Serif Japanese';
+                            font-family: 'Source Serif TC min';
                             src: url('${font}') format('woff');
                         }
                         html,
@@ -87,10 +87,7 @@ class Layout extends React.Component {
                             overflow-x: hidden;
                             margin: 0;
                             width: 100%;
-                            font-family: "Noto Serif Japanese", "Helvetica", "Tahoma", "Arial",
-                                "Microsoft YaHei", "微软雅黑", "SimSun", "宋体",
-                                "STXihei", "冬青体", "华文细黑", "Heiti", "黑体",
-                                sans-serif;
+                            font-family: "Source Serif TC min";
                         }
                         ::-webkit-scrollbar {
                             width: 0px;  /* remove scrollbar space */

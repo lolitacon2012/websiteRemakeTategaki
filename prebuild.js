@@ -29,15 +29,16 @@ var generateFinalHTML = function(finalString) {
     console.log("Generating font subset for: ")
     console.log(finalString)
     var fontmin = new Fontmin()
-    .src('assets/fonts/SourceHanSerifJP-Regular.ttf')
+    .src('assets/fonts/SourceHanSerifCN-Light.ttf')
     .dest('build/fonts/')
+    .use(Fontmin.glyph({ 
+      text: finalString,
+      hinting: false         // keep ttf hint info (fpgm, prep, cvt). default = true
+  }))
     .use(Fontmin.ttf2woff({
         deflate: true           // deflate woff. default = false
-    }))
-    .use(Fontmin.glyph({ 
-        text: finalString,
-        hinting: false         // keep ttf hint info (fpgm, prep, cvt). default = true
     }));
+
 
 fontmin.run(function (err) {
     if (err) {
