@@ -22,22 +22,15 @@ const Index = props => (
             </div> */}
 
             <AdaptiveContainer>
-            <p>
-                天地玄黄、宇宙洪荒　
-                右通廣内，左達承明　
-                </p>
-                <p>
-                天地玄黄、宇宙洪荒　
-                右通広内、左達承明　
-                </p>
-                <p>
-                天地玄黄、宇宙洪荒　
-                右通广内，左达承明　
-                </p>
+                <p>天地玄黄、宇宙洪荒　 右通廣内，左達承明　</p>
+                <p>天地玄黄、宇宙洪荒　 右通広内、左達承明　</p>
+                <p>天地玄黄、宇宙洪荒　 右通广内，左达承明　</p>
             </AdaptiveContainer>
             <AdaptiveContainer>
                 <h1>
-                <ruby>千<rt>せん</rt>字<rt>じ</rt>文<rt>もん</rt></ruby>
+                    <ruby>
+                        千<rt>せん</rt>字<rt>じ</rt>文<rt>もん</rt>
+                    </ruby>
                 </h1>
             </AdaptiveContainer>
         </Layout>
