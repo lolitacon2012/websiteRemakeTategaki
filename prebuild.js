@@ -1,59 +1,63 @@
-var fs = require("fs");
-var Fontmin = require('fontmin');
-var set = new Set();
-var walk = function(dir, done) {
-  var results = [];
-  fs.readdir(dir, function(err, list) {
-    if (err) return done(err);
-    var i = 0;
-    (function next() {
-      var file = list[i++];
-      if (!file) return done(null, results);
-      file = dir + '/' + file;
-      fs.stat(file, function(err, stat) {
-        if (stat && stat.isDirectory()) {
-          walk(file, function(err, res) {
-            results = results.concat(res);
-            next();
-          });
-        } else {
-          results.push(file);
-          next();
+const fs = require("fs");
+const Fontmin = require('fontmin');
+let set = new Set();
+
+//get all possible characters
+const scanFolder = (dir, done) => {
+    let results = [];
+    fs.readdir(dir, (err, list) => {
+        if (err) {
+            return done(err);
         }
-      });
-    })();
-  });
+        let i = 0;
+        (function iter() {
+            let file = list[i++];
+            if (!file) {
+                return done(null, results);
+            }
+            file = dir + '/' + file;
+            fs.stat(file, (err, stat) => {
+                if (stat && stat.isDirectory()) {
+                    scanFolder(file, (err, res) => {
+                        results = results.concat(res);
+                        iter();
+                    });
+                } else {
+                    results.push(file);
+                    iter();
+                }
+            });
+        })();
+    });
 };
 
-var generateFinalHTML = function(finalString) {
-    console.log("Generating font subset for: ")
-    console.log(finalString)
-    var fontmin = new Fontmin()
-    .src('assets/fonts/SourceHanSerifCN-Light.ttf')
-    .dest('build/fonts/')
-    .use(Fontmin.glyph({ 
-      text: finalString,
-      hinting: false         // keep ttf hint info (fpgm, prep, cvt). default = true
-  }))
-    .use(Fontmin.ttf2woff({
-        deflate: true           // deflate woff. default = false
-    }));
+//get all possible characters
+const generateFinalHTML = finalString => {
+    const fontmin = new Fontmin()
+        .src('assets/fonts/SourceHanSerifCN-Light.ttf')
+        .dest('build/fonts/')
+        .use(Fontmin.glyph({
+            text: finalString,
+            hinting: false
+        }))
+        .use(Fontmin.ttf2woff({
+            deflate: true
+        }));
 
 
-fontmin.run(function (err) {
-    if (err) {
-        throw err;
-    }
-});
+    fontmin.run((err) => {
+        if (err) {
+            throw err;
+        }
+    });
 }
 
-walk("data", (n,results)=>{
+//get all possible characters
+scanFolder("data", (n, results) => {
     results.forEach(file => {
         const result = fs.readFileSync(file, 'utf8');
-        var currentSet = new Set(result)
+        const currentSet = new Set(result)
         set = new Set([...set, ...currentSet]);
     });
     generateFinalHTML(Array.from(set).join(""))
 })
-
-

@@ -19,7 +19,7 @@ const AdaptiveContainer = ({ children, forceHorizontal }) => (
                     -webkit-writing-mode: vertical-rl;
                     -ms-writing-mode: tb-rl;
                     writing-mode: vertical-rl;
-                    padding: 4px;
+                    padding: 80px;
                 }
                 .innerContainer-horizontal {
                     padding: 8px 0 8px 0;
