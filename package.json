@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "sudo npm install font-spider otf2ttf fontforge -g",
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node prebuild.js && next",
+    "build": "node prebuild.js && next build",
+    "start": "node prebuild.js && next start",
     "pretty": "prettier --write --tab-width 4 \"{components,pages}/**/*.js\""
   },
   "husky": {
@@ -26,6 +25,7 @@
   },
   "homepage": "https://github.com/lolitacon2012/websiteRemakeTategaki#readme",
   "dependencies": {
+    "fontmin": "^0.9.7-beta",
     "install": "^0.12.1",
     "isomorphic-unfetch": "^2.1.1",
     "next": "^6.1.2",
