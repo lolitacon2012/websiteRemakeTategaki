@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
+import { colors } from "../colors";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -14,11 +15,13 @@ class Layout extends React.Component {
         this.handleScrollViewportChange = this.handleScrollViewportChange.bind(
             this
         );
+        this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
     }
     componentDidMount() {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
         window.addEventListener("scroll", this.handleScroll);
+        this.drawBackgroundCanvas();
     }
     handleScroll() {
         const doc = document.documentElement;
@@ -40,6 +43,57 @@ class Layout extends React.Component {
             fakeContentHeight
         });
     }
+    drawBackgroundCanvas() {
+        const c = document.getElementById("backgroundCanvas");
+        const canvasWidth = Math.max(
+            window.innerWidth,
+            this.realContainer.current.offsetWidth
+        );
+        c.width = canvasWidth;
+        c.height = window.innerHeight;
+        const ctx = c.getContext("2d");
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = colors.middlePink;
+        //generate curve sets
+        const stepLength = 400;
+        const curveScope = 800;
+        let currentX = canvasWidth + stepLength;
+        ctx.beginPath();
+        let switched = false;
+        let noSwitch = 0;
+        let forceSwitch = false;
+        while (currentX > 0 - stepLength) {
+            const x0 =
+                currentX + (Math.random() * curveScope - curveScope / 2) / 1.1;
+            const x1 = x0 - stepLength / 2;
+            const x2 =
+                currentX -
+                curveScope +
+                (Math.random() * curveScope - curveScope / 2) / 1.1;
+            const switchDirection = Math.random() > 0.5;
+            if (noSwitch > 2) {
+                forceSwitch = true;
+                noSwitch = 0;
+                switched = false;
+            } else {
+                if (switched == switchDirection) {
+                    noSwitch++;
+                } else {
+                    noSwitch = 0;
+                }
+            }
+            switched = switchDirection;
+            ctx.moveTo(switchDirection || forceSwitch ? x1 : x0, 0);
+            ctx.quadraticCurveTo(
+                x1,
+                window.innerHeight / 2,
+                switchDirection || forceSwitch ? x0 : x2,
+                window.innerHeight
+            );
+            ctx.stroke();
+            currentX -= stepLength;
+        }
+    }
     render() {
         return (
             <div style={{}}>
@@ -53,12 +107,22 @@ class Layout extends React.Component {
                 </Head>
                 {!isMobile && (
                     <div>
+                        <div className="top-purple-pannel" />
+                        <div className="bottom-purple-pannel" />
                         <div
                             className="real-container"
                             ref={this.realContainer}
                             style={{ right: this.state.contentRightOffset }}
                         >
-                            {this.props.children}
+                            <div className="background-canvas-container">
+                                <canvas id="backgroundCanvas">
+                                    Your browser does not support the HTML5
+                                    canvas tag.
+                                </canvas>
+                            </div>
+                            <div className="children-container-extend-to-screen-width">
+                                {this.props.children}
+                            </div>
                         </div>
                         <div
                             className="fake-container"
@@ -99,8 +163,7 @@ class Layout extends React.Component {
                     {`
                         .real-container {
                             position: fixed;
-                            display: flex;
-                            flex-direction: row;
+
                             height: 100vh;
                             overflow-y: hidden;
                             top: 0;
@@ -113,6 +176,39 @@ class Layout extends React.Component {
                         }
                         .fake-container {
                             pointer-events: none;
+                        }
+                        .children-container-extend-to-screen-width {
+                            display: flex;
+                            flex-direction: row;
+                            min-width: 100vw;
+                            height: 100vh;
+                            background-color: ${colors.lightYellow};
+                            justify-content: flex-end;
+                            padding-top: 128px;
+                            padding-bottom: 128px;
+                        }
+                        .background-canvas-container {
+                            position: absolute;
+                        }
+                        .top-purple-pannel {
+                            position: fixed;
+                            left: 0;
+                            right: 0;
+                            top: 0;
+                            width: 100vw;
+                            height: 128px;
+                            background-color: ${colors.middlePurple};
+                            z-index: 9999;
+                        }
+                        .bottom-purple-pannel {
+                            position: fixed;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            width: 120vw;
+                            height: 128px;
+                            background-color: ${colors.middlePurple};
+                            z-index: 9999;
                         }
                     `}
                 </style>
