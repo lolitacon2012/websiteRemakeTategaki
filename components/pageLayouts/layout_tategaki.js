@@ -43,11 +43,9 @@ class Layout extends React.Component {
             fakeContentHeight
         });
     }
-    drawOneFrameOfBackgroundCanvas(){
-
-    }
+    drawOneFrameOfBackgroundCanvas() {}
     drawBackgroundCanvas() {
-        const pointSet=[];
+        const pointSet = [];
         const c = document.getElementById("backgroundCanvas");
         const canvasWidth = Math.max(
             window.innerWidth,
@@ -65,54 +63,58 @@ class Layout extends React.Component {
             const switchDirection = Math.random(1) > 0.5;
             const startTop = Math.random(2) > 0.6;
             const endTop = Math.random(3) > 0.6;
-            const sameSide = (startTop == endTop);
-            let x0 =
-                currentX + (Math.random(4) * curveScope - curveScope / 2);
+            const sameSide = startTop == endTop;
+            let x0 = currentX + (Math.random(4) * curveScope - curveScope / 2);
             let x2 =
                 currentX -
                 curveScope +
                 (Math.random(5) * curveScope - curveScope / 2);
-            if(sameSide){
-                if(!switchDirection){
-                    x0+=500;
-                    x2-=500;
-                }else{
-                    x2+=500;
-                    x0-=500;
+            if (sameSide) {
+                if (!switchDirection) {
+                    x0 += 500;
+                    x2 -= 500;
+                } else {
+                    x2 += 500;
+                    x0 -= 500;
                 }
             }
             const x1 = (x0 + x2) / 2;
-            const midPointDiffX = (Math.random()-0.5)*x1/1.3;
-            const midPointDiffY = (Math.random()-0.5)*window.innerHeight/1.5;
-            if(Math.abs(x2-x0)<900){
+            const midPointDiffX = ((Math.random() - 0.5) * x1) / 1.3;
+            const midPointDiffY =
+                ((Math.random() - 0.5) * window.innerHeight) / 1.5;
+            if (Math.abs(x2 - x0) < 900) {
                 continue;
             }
             currentX -= stepLength;
             pointSet.push({
                 x0: switchDirection ? x2 : x0,
-                y0: startTop?0:window.innerHeight,
-                x1: sameSide ? x1 : (x1 + midPointDiffX),
-                y1: sameSide ? ( (startTop && endTop) ? window.innerHeight : 0) : (midPointDiffY + window.innerHeight / 2),
+                y0: startTop ? 0 : window.innerHeight,
+                x1: sameSide ? x1 : x1 + midPointDiffX,
+                y1: sameSide
+                    ? startTop && endTop
+                        ? window.innerHeight
+                        : 0
+                    : midPointDiffY + window.innerHeight / 2,
                 x2: switchDirection ? x0 : x2,
-                y2: endTop ? 0:window.innerHeight
-            })
+                y2: endTop ? 0 : window.innerHeight
+            });
         }
 
-        const gradient=ctx.createRadialGradient(75, 50, 5, 9, 60, 100);
+        const gradient = ctx.createRadialGradient(75, 50, 5, 9, 60, 100);
 
-gradient.addColorStop("0","magenta");
-gradient.addColorStop("1","blue");
-ctx.shadowBlur = 1;
-ctx.shadowColor = colors.middlePink;
-ctx.lineWidth = 1;
-ctx.strokeStyle = colors.middlePink;
-        pointSet.forEach((p)=>{
-            const {x0,x1,x2,y0,y1,y2}=p;
-            ctx.strokeStyle=colors.middlePink;
+        gradient.addColorStop("0", "magenta");
+        gradient.addColorStop("1", "blue");
+        ctx.shadowBlur = 1;
+        ctx.shadowColor = colors.middlePink;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = colors.middlePink;
+        pointSet.forEach(p => {
+            const { x0, x1, x2, y0, y1, y2 } = p;
+            ctx.strokeStyle = colors.middlePink;
             ctx.moveTo(x0, y0);
-            ctx.quadraticCurveTo(x1,y1,x2,y2);
+            ctx.quadraticCurveTo(x1, y1, x2, y2);
             ctx.stroke();
-        })
+        });
     }
     render() {
         return (
