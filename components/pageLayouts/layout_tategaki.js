@@ -43,7 +43,11 @@ class Layout extends React.Component {
             fakeContentHeight
         });
     }
+    drawOneFrameOfBackgroundCanvas(){
+
+    }
     drawBackgroundCanvas() {
+        const pointSet=[];
         const c = document.getElementById("backgroundCanvas");
         const canvasWidth = Math.max(
             window.innerWidth,
@@ -52,47 +56,63 @@ class Layout extends React.Component {
         c.width = canvasWidth;
         c.height = window.innerHeight;
         const ctx = c.getContext("2d");
-        ctx.lineWidth = 2.5;
-        ctx.strokeStyle = colors.middlePink;
         //generate curve sets
-        const stepLength = 400;
-        const curveScope = 800;
+        const stepLength = 1500;
+        const curveScope = 2000;
         let currentX = canvasWidth + stepLength;
         ctx.beginPath();
-        let switched = false;
-        let noSwitch = 0;
-        let forceSwitch = false;
         while (currentX > 0 - stepLength) {
-            const x0 =
-                currentX + (Math.random() * curveScope - curveScope / 2) / 1.1;
-            const x1 = x0 - stepLength / 2;
-            const x2 =
+            const switchDirection = Math.random(1) > 0.5;
+            const startTop = Math.random(2) > 0.6;
+            const endTop = Math.random(3) > 0.6;
+            const sameSide = (startTop == endTop);
+            let x0 =
+                currentX + (Math.random(4) * curveScope - curveScope / 2);
+            let x2 =
                 currentX -
                 curveScope +
-                (Math.random() * curveScope - curveScope / 2) / 1.1;
-            const switchDirection = Math.random() > 0.5;
-            if (noSwitch > 2) {
-                forceSwitch = true;
-                noSwitch = 0;
-                switched = false;
-            } else {
-                if (switched == switchDirection) {
-                    noSwitch++;
-                } else {
-                    noSwitch = 0;
+                (Math.random(5) * curveScope - curveScope / 2);
+            if(sameSide){
+                if(!switchDirection){
+                    x0+=500;
+                    x2-=500;
+                }else{
+                    x2+=500;
+                    x0-=500;
                 }
             }
-            switched = switchDirection;
-            ctx.moveTo(switchDirection || forceSwitch ? x1 : x0, 0);
-            ctx.quadraticCurveTo(
-                x1,
-                window.innerHeight / 2,
-                switchDirection || forceSwitch ? x0 : x2,
-                window.innerHeight
-            );
-            ctx.stroke();
+            const x1 = (x0 + x2) / 2;
+            const midPointDiffX = (Math.random()-0.5)*x1/1.3;
+            const midPointDiffY = (Math.random()-0.5)*window.innerHeight/1.5;
+            if(Math.abs(x2-x0)<900){
+                continue;
+            }
             currentX -= stepLength;
+            pointSet.push({
+                x0: switchDirection ? x2 : x0,
+                y0: startTop?0:window.innerHeight,
+                x1: sameSide ? x1 : (x1 + midPointDiffX),
+                y1: sameSide ? ( (startTop && endTop) ? window.innerHeight : 0) : (midPointDiffY + window.innerHeight / 2),
+                x2: switchDirection ? x0 : x2,
+                y2: endTop ? 0:window.innerHeight
+            })
         }
+
+        const gradient=ctx.createRadialGradient(75, 50, 5, 9, 60, 100);
+
+gradient.addColorStop("0","magenta");
+gradient.addColorStop("1","blue");
+ctx.shadowBlur = 1;
+ctx.shadowColor = colors.middlePink;
+ctx.lineWidth = 1;
+ctx.strokeStyle = colors.middlePink;
+        pointSet.forEach((p)=>{
+            const {x0,x1,x2,y0,y1,y2}=p;
+            ctx.strokeStyle=colors.middlePink;
+            ctx.moveTo(x0, y0);
+            ctx.quadraticCurveTo(x1,y1,x2,y2);
+            ctx.stroke();
+        })
     }
     render() {
         return (
