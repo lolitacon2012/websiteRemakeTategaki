@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/lolitacon2012/websiteRemakeTategaki#readme",
   "dependencies": {
+    "animejs": "^2.2.0",
     "fontmin": "^0.9.7-beta",
     "install": "^0.12.1",
     "isomorphic-unfetch": "^2.1.1",
