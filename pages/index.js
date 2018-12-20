@@ -19,9 +19,7 @@ const Index = props => (
             <div className="right-intro-container">
                 <h1 className="tategaki-dense">{getText("myname")}</h1>
             </div>
-            <div>
-                
-            </div>
+            <div />
         </Layout>
         <style jsx>
             {`
@@ -37,12 +35,12 @@ const Index = props => (
                     -webkit-writing-mode: vertical-rl;
                     -ms-writing-mode: tb-rl;
                     writing-mode: vertical-rl;
-                    letter-spacing:-12px;
+                    letter-spacing: -12px;
                 }
                 .right-intro-container {
                     background-color: ${colors.middlePurple};
                     height: 100vh;
-                    width:50vw;
+                    width: 50vw;
                     box-shadow: 100px 300px -500px red;
                 }
             `}

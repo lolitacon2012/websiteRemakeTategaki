@@ -134,21 +134,19 @@ class Layout extends React.Component {
             for (var i = 0; i < numberOfParticules; i++) {
                 particules.push(createParticule(x, y));
             }
-            anime
-                .timeline()
-                .add({
-                    targets: particules,
-                    x: function(p) {
-                        return p.endPos.x;
-                    },
-                    y: function(p) {
-                        return p.endPos.y;
-                    },
-                    radius: 0.1,
-                    duration: anime.random(1200, 1800),
-                    easing: "easeOutExpo",
-                    update: renderParticule
-                })
+            anime.timeline().add({
+                targets: particules,
+                x: function(p) {
+                    return p.endPos.x;
+                },
+                y: function(p) {
+                    return p.endPos.y;
+                },
+                radius: 0.1,
+                duration: anime.random(1200, 1800),
+                easing: "easeOutExpo",
+                update: renderParticule
+            });
         }
     }
     render() {
@@ -177,7 +175,7 @@ class Layout extends React.Component {
                             className="fake-container"
                             style={{ height: this.state.fakeContentHeight }}
                         />
-                            <div className="foreground-canvas-container">
+                        <div className="foreground-canvas-container">
                             <canvas id="foregroundCanvas" />
                         </div>
                     </div>
