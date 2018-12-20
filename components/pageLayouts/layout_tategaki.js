@@ -17,14 +17,12 @@ class Layout extends React.Component {
         this.handleScrollViewportChange = this.handleScrollViewportChange.bind(
             this
         );
-        this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
         this.handleForegroundCanvas = this.handleForegroundCanvas.bind(this);
     }
     componentDidMount() {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
         window.addEventListener("scroll", this.handleScroll);
-        this.drawBackgroundCanvas();
         this.handleForegroundCanvas();
     }
     handleScroll() {
@@ -51,12 +49,10 @@ class Layout extends React.Component {
         var canvasEl = document.getElementById("foregroundCanvas");
         if (canvasEl) {
             var ctx = canvasEl.getContext("2d");
-            var numberOfParticules = 30;
+            var numberOfParticules = 15;
             var pointerX = 0;
             var pointerY = 0;
-            // var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown'
-            // Fixed the mobile scroll
-            var tap = "mousedown";
+            var tap = "mouseup";
             var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
             var setCanvasSize = debounce(() => {
@@ -94,7 +90,6 @@ class Layout extends React.Component {
             setCanvasSize();
             window.addEventListener("resize", setCanvasSize, false);
         }
-
         function updateCoords(e) {
             pointerX =
                 (e.clientX || e.touches[0].clientX) -
@@ -103,7 +98,6 @@ class Layout extends React.Component {
                 e.clientY ||
                 e.touches[0].clientY - canvasEl.getBoundingClientRect().top;
         }
-
         function setParticuleDirection(p) {
             var angle = (anime.random(0, 360) * Math.PI) / 180;
             var value = anime.random(50, 180);
@@ -113,7 +107,6 @@ class Layout extends React.Component {
                 y: p.y + radius * Math.sin(angle)
             };
         }
-
         function createParticule(x, y) {
             var p = {};
             p.x = x;
@@ -129,27 +122,6 @@ class Layout extends React.Component {
             };
             return p;
         }
-
-        function createCircle(x, y) {
-            var p = {};
-            p.x = x;
-            p.y = y;
-            p.color = "#F00";
-            p.radius = 0.1;
-            p.alpha = 0.5;
-            p.lineWidth = 6;
-            p.draw = function() {
-                ctx.globalAlpha = p.alpha;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-                ctx.lineWidth = p.lineWidth;
-                ctx.strokeStyle = p.color;
-                ctx.stroke();
-                ctx.globalAlpha = 1;
-            };
-            return p;
-        }
-
         function renderParticule(anim) {
             for (var i = 0; i < anim.animatables.length; i++) {
                 anim.animatables[i].target.draw();
@@ -157,7 +129,7 @@ class Layout extends React.Component {
         }
 
         function animateParticules(x, y) {
-            var circle = createCircle(x, y);
+            //var circle = createCircle(x, y);
             var particules = [];
             for (var i = 0; i < numberOfParticules; i++) {
                 particules.push(createParticule(x, y));
@@ -177,93 +149,7 @@ class Layout extends React.Component {
                     easing: "easeOutExpo",
                     update: renderParticule
                 })
-                .add({
-                    targets: circle,
-                    radius: anime.random(80, 160),
-                    lineWidth: 0,
-                    alpha: {
-                        value: 0,
-                        easing: "linear",
-                        duration: anime.random(600, 800)
-                    },
-                    duration: anime.random(1200, 1800),
-                    easing: "easeOutExpo",
-                    update: renderParticule,
-                    offset: 0
-                });
         }
-    }
-    drawBackgroundCanvas() {
-        const pointSet = [];
-        const c = document.getElementById("backgroundCanvas");
-        const canvasWidth = Math.max(
-            window.innerWidth,
-            this.realContainer.current.offsetWidth
-        );
-        c.width = canvasWidth;
-        c.height = window.innerHeight;
-        const ctx = c.getContext("2d");
-        //generate curve sets
-        const stepLength = 1500;
-        const curveScope = 2000;
-        let currentX = canvasWidth + stepLength;
-        ctx.beginPath();
-        while (currentX > 0 - stepLength) {
-            const switchDirection = Math.random(1) > 0.5;
-            const startTop = Math.random(2) > 0.6;
-            const endTop = Math.random(3) > 0.6;
-            const sameSide = startTop == endTop;
-            let x0 = currentX + (Math.random(4) * curveScope - curveScope / 2);
-            let x2 =
-                currentX -
-                curveScope +
-                (Math.random(5) * curveScope - curveScope / 2);
-            if (sameSide) {
-                if (!switchDirection) {
-                    x0 += 500;
-                    x2 -= 500;
-                } else {
-                    x2 += 500;
-                    x0 -= 500;
-                }
-            }
-            const x1 = (x0 + x2) / 2;
-            const midPointDiffX = ((Math.random() - 0.5) * x1) / 1.3;
-            const midPointDiffY =
-                ((Math.random() - 0.5) * window.innerHeight) / 1.5;
-            if (Math.abs(x2 - x0) < 900) {
-                continue;
-            }
-            currentX -= stepLength;
-            pointSet.push({
-                x0: switchDirection ? x2 : x0,
-                y0: startTop ? 0 : window.innerHeight,
-                x1: sameSide ? x1 : x1 + midPointDiffX,
-                y1: sameSide
-                    ? startTop && endTop
-                        ? window.innerHeight
-                        : 0
-                    : midPointDiffY + window.innerHeight / 2,
-                x2: switchDirection ? x0 : x2,
-                y2: endTop ? 0 : window.innerHeight
-            });
-        }
-
-        const gradient = ctx.createRadialGradient(75, 50, 5, 9, 60, 100);
-
-        gradient.addColorStop("0", "magenta");
-        gradient.addColorStop("1", "blue");
-        ctx.shadowBlur = 1;
-        ctx.shadowColor = colors.middlePink;
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = colors.middlePink;
-        pointSet.forEach(p => {
-            const { x0, x1, x2, y0, y1, y2 } = p;
-            ctx.strokeStyle = colors.middlePink;
-            ctx.moveTo(x0, y0);
-            ctx.quadraticCurveTo(x1, y1, x2, y2);
-            ctx.stroke();
-        });
     }
     render() {
         return (
@@ -278,22 +164,11 @@ class Layout extends React.Component {
                 </Head>
                 {!isMobile && (
                     <div>
-                        <div className="foreground-canvas-container">
-                            <canvas id="foregroundCanvas" />
-                        </div>
-                        <div className="top-purple-pannel" />
-                        <div className="bottom-purple-pannel" />
                         <div
                             className="real-container"
                             ref={this.realContainer}
                             style={{ right: this.state.contentRightOffset }}
                         >
-                            <div className="background-canvas-container">
-                                <canvas id="backgroundCanvas">
-                                    Your browser does not support the HTML5
-                                    canvas tag.
-                                </canvas>
-                            </div>
                             <div className="children-container-extend-to-screen-width">
                                 {this.props.children}
                             </div>
@@ -302,6 +177,9 @@ class Layout extends React.Component {
                             className="fake-container"
                             style={{ height: this.state.fakeContentHeight }}
                         />
+                            <div className="foreground-canvas-container">
+                            <canvas id="foregroundCanvas" />
+                        </div>
                     </div>
                 )}
                 {isMobile && (
@@ -326,6 +204,7 @@ class Layout extends React.Component {
                             margin: 0;
                             width: 100%;
                             font-family: "Source Serif TC min";
+                            background-color: ${colors.lightYellow};
                         }
                         ::-webkit-scrollbar {
                             width: 0px;  /* remove scrollbar space */
@@ -337,11 +216,11 @@ class Layout extends React.Component {
                     {`
                         .real-container {
                             position: fixed;
-
                             height: 100vh;
                             overflow-y: hidden;
                             top: 0;
                             bottom: 0;
+                            z-index: 9992;
                         }
                         .mobile-container {
                             display: flex;
@@ -356,33 +235,7 @@ class Layout extends React.Component {
                             flex-direction: row;
                             min-width: 100vw;
                             height: 100vh;
-                            background-color: ${colors.lightYellow};
                             justify-content: flex-end;
-                            padding-top: 128px;
-                            padding-bottom: 128px;
-                        }
-                        .background-canvas-container {
-                            position: absolute;
-                        }
-                        .top-purple-pannel {
-                            position: fixed;
-                            left: 0;
-                            right: 0;
-                            top: 0;
-                            width: 100vw;
-                            height: 128px;
-                            background-color: ${colors.middlePurple};
-                            z-index: 9997;
-                        }
-                        .bottom-purple-pannel {
-                            position: fixed;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            width: 120vw;
-                            height: 128px;
-                            background-color: ${colors.middlePurple};
-                            z-index: 9998;
                         }
                         .foreground-canvas-container {
                             position: fixed;
@@ -392,7 +245,7 @@ class Layout extends React.Component {
                             top: 0;
                             width: 100vw;
                             height: 100vh;
-                            z-index: 9999;
+                            z-index: 9990;
                         }
                     `}
                 </style>

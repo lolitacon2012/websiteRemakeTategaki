@@ -2,292 +2,11 @@ import fetch from "isomorphic-unfetch";
 import Layout from "../components/pageLayouts/layout_tategaki";
 import AdaptiveContainer from "../components/paseSections/adaptiveContainer";
 import { getText } from "../utils/textService";
+import { colors } from "../components/colors";
 const Index = props => (
     <div>
         <Layout>
-            {/* <div className="reversed-column">
-                <p>Area 6</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 5</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 4</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 3</p>
-            </div>
-            <div className="reversed-column">
-                <p>Area 2</p>
-            </div> */}
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <p>天地玄黄　宇宙洪荒</p>
-                <p />
-                <p>右通広内　左達承明</p>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
-                <h1>
-                    <ruby>
-                        千<rt>せん</rt>字<rt>じ</rt>文<rt>もん</rt>
-                    </ruby>
-                </h1>
-            </AdaptiveContainer>
-            <AdaptiveContainer>
+            {/* <AdaptiveContainer>
                 <div
                     style={{
                         width: "55px",
@@ -296,20 +15,35 @@ const Index = props => (
                         marginRight: "200px"
                     }}
                 />
-            </AdaptiveContainer>
+            </AdaptiveContainer> */}
+            <div className="right-intro-container">
+                <h1 className="tategaki-dense">{getText("myname")}</h1>
+            </div>
+            <div>
+                
+            </div>
         </Layout>
         <style jsx>
             {`
-                .tategaki-container {
-                    padding: 20px;
-                    background: red;
+                h1 {
+                    font-size: 3rem;
                 }
-                .tategaki-outer-container {
-                }
-                .reversed-column {
+                .tategaki {
                     -webkit-writing-mode: vertical-rl;
                     -ms-writing-mode: tb-rl;
                     writing-mode: vertical-rl;
+                }
+                .tategaki-dense {
+                    -webkit-writing-mode: vertical-rl;
+                    -ms-writing-mode: tb-rl;
+                    writing-mode: vertical-rl;
+                    letter-spacing:-12px;
+                }
+                .right-intro-container {
+                    background-color: ${colors.middlePurple};
+                    height: 100vh;
+                    width:50vw;
+                    box-shadow: 100px 300px -500px red;
                 }
             `}
         </style>
