@@ -5,8 +5,8 @@ import { getText } from "../utils/textService";
 import { colors } from "../components/colors";
 const Index = props => (
     <div>
-        <Layout>
-            {/* <AdaptiveContainer>
+        <Layout renderComment={true}>
+            <AdaptiveContainer>
                 <div
                     style={{
                         width: "55px",
@@ -15,11 +15,160 @@ const Index = props => (
                         marginRight: "200px"
                     }}
                 />
-            </AdaptiveContainer> */}
-            <div className="right-intro-container">
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            <AdaptiveContainer>
+                <div
+                    style={{
+                        width: "55px",
+                        height: "320px",
+                        backgroundColor: "rgba(200,200,45,0.5)",
+                        marginRight: "200px"
+                    }}
+                />
+            </AdaptiveContainer>
+            {/* <div className="right-intro-container">
                 <h1 className="tategaki-dense">{getText("myname")}</h1>
-            </div>
-            <div />
+            </div> */}
         </Layout>
         <style jsx>
             {`
@@ -41,7 +190,6 @@ const Index = props => (
                     background-color: ${colors.middlePurple};
                     height: 100vh;
                     width: 50vw;
-                    box-shadow: 100px 300px -500px red;
                 }
             `}
         </style>

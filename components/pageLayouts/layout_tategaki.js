@@ -4,6 +4,7 @@ import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
 import { colors } from "../colors";
 import { debounce } from "../../utils/debounce";
 import anime from "animejs";
+import Disqus from "disqus-react";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -11,13 +12,15 @@ class Layout extends React.Component {
         this.wrapperContainer = React.createRef();
         this.state = {
             contentRightOffset: 0,
-            fakeContentHeight: 0
+            fakeContentHeight: 0,
+            contentTopOffset: 0
         };
         this.handleScroll = this.handleScroll.bind(this);
         this.handleScrollViewportChange = this.handleScrollViewportChange.bind(
             this
         );
         this.handleForegroundCanvas = this.handleForegroundCanvas.bind(this);
+        this.renderDisqusComment = this.renderDisqusComment.bind(this);
     }
     componentDidMount() {
         this.handleScrollViewportChange();
@@ -30,8 +33,27 @@ class Layout extends React.Component {
         const top =
             (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
         const offSetY = top;
+        const isEnd =
+            this.state.fakeContentHeight - offSetY <= window.innerHeight;
         this.setState({
-            contentRightOffset: 0 - offSetY
+            contentRightOffset: isEnd
+                ? window.innerHeight - this.state.fakeContentHeight
+                : 0 - offSetY,
+            contentTopOffset: isEnd
+                ? 0 -
+                  offSetY -
+                  window.innerHeight +
+                  this.state.fakeContentHeight
+                : 0
+        });
+        console.log({
+            fakeContentHeight: this.state.fakeContentHeight,
+            offSetY,
+            "window.innerWidth": window.innerWidth,
+            "window.innerHeight": window.innerHeight,
+            topOffset: isEnd
+                ? offSetY - this.state.fakeContentHeight - window.innerHeight
+                : 0
         });
         this.handleScrollViewportChange();
     }
@@ -149,6 +171,33 @@ class Layout extends React.Component {
             });
         }
     }
+    renderDisqusComment() {
+        const disqusShortname = "kannagi-moe";
+        const disqusConfig = {
+            // url: this.props.disqusConfig.url,
+            // identifier: this.props.disqusConfig.id,
+            // title: this.props.disqusConfig.title,
+            url: "https://kannagi.moe",
+            identifier: "test_homepage",
+            title: "test_homepage"
+        };
+        return (
+            <div className="article">
+                <h1>ArticleTitleHere</h1>
+                <Disqus.CommentCount
+                    shortname={disqusShortname}
+                    config={disqusConfig}
+                >
+                    Comments
+                </Disqus.CommentCount>
+                <p>ArticleBodyHere</p>
+                <Disqus.DiscussionEmbed
+                    shortname={disqusShortname}
+                    config={disqusConfig}
+                />
+            </div>
+        );
+    }
     render() {
         return (
             <div style={{}}>
@@ -165,7 +214,10 @@ class Layout extends React.Component {
                         <div
                             className="real-container"
                             ref={this.realContainer}
-                            style={{ right: this.state.contentRightOffset }}
+                            style={{
+                                right: this.state.contentRightOffset,
+                                top: this.state.contentTopOffset
+                            }}
                         >
                             <div className="children-container-extend-to-screen-width">
                                 {this.props.children}
@@ -175,6 +227,10 @@ class Layout extends React.Component {
                             className="fake-container"
                             style={{ height: this.state.fakeContentHeight }}
                         />
+                        <div className="postfix-container">
+                            {this.props.renderComment &&
+                                this.renderDisqusComment()}
+                        </div>
                         <div className="foreground-canvas-container">
                             <canvas id="foregroundCanvas" />
                         </div>
@@ -219,6 +275,7 @@ class Layout extends React.Component {
                             top: 0;
                             bottom: 0;
                             z-index: 9992;
+                            background-color: #ff0000;
                         }
                         .mobile-container {
                             display: flex;
@@ -244,6 +301,9 @@ class Layout extends React.Component {
                             width: 100vw;
                             height: 100vh;
                             z-index: 9990;
+                        }
+                        .postfix-container {
+                            width: 100vw;
                         }
                     `}
                 </style>
