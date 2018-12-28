@@ -1,10 +1,8 @@
 import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
-import { colors } from "../colors";
-import { debounce } from "../../utils/debounce";
-import anime from "animejs";
 import Disqus from "disqus-react";
+import NavigationBar from "../pageSections/navigationBar";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -19,14 +17,12 @@ class Layout extends React.Component {
         this.handleScrollViewportChange = this.handleScrollViewportChange.bind(
             this
         );
-        this.handleForegroundCanvas = this.handleForegroundCanvas.bind(this);
         this.renderDisqusComment = this.renderDisqusComment.bind(this);
     }
     componentDidMount() {
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
         window.addEventListener("scroll", this.handleScroll);
-        this.handleForegroundCanvas();
     }
     handleScroll() {
         const doc = document.documentElement;
@@ -46,15 +42,6 @@ class Layout extends React.Component {
                   this.state.fakeContentHeight
                 : 0
         });
-        console.log({
-            fakeContentHeight: this.state.fakeContentHeight,
-            offSetY,
-            "window.innerWidth": window.innerWidth,
-            "window.innerHeight": window.innerHeight,
-            topOffset: isEnd
-                ? offSetY - this.state.fakeContentHeight - window.innerHeight
-                : 0
-        });
         this.handleScrollViewportChange();
     }
     handleScrollViewportChange() {
@@ -66,110 +53,6 @@ class Layout extends React.Component {
         this.setState({
             fakeContentHeight
         });
-    }
-    handleForegroundCanvas() {
-        var canvasEl = document.getElementById("foregroundCanvas");
-        if (canvasEl) {
-            var ctx = canvasEl.getContext("2d");
-            var numberOfParticules = 15;
-            var pointerX = 0;
-            var pointerY = 0;
-            var tap = "mouseup";
-            var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
-
-            var setCanvasSize = debounce(() => {
-                canvasEl.width = window.innerWidth * 2;
-                canvasEl.height = window.innerHeight * 2;
-                canvasEl.style.width = window.innerWidth + "px";
-                canvasEl.style.height = window.innerHeight + "px";
-                canvasEl.getContext("2d").scale(2, 2);
-            }, 500);
-
-            var render = anime({
-                duration: Infinity,
-                update: function() {
-                    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-                }
-            });
-
-            document.addEventListener(
-                tap,
-                function(e) {
-                    if (
-                        e.target.id !== "sidebar" &&
-                        e.target.id !== "toggle-sidebar" &&
-                        e.target.nodeName !== "A" &&
-                        e.target.nodeName !== "IMG"
-                    ) {
-                        render.play();
-                        updateCoords(e);
-                        animateParticules(pointerX, pointerY);
-                    }
-                },
-                false
-            );
-
-            setCanvasSize();
-            window.addEventListener("resize", setCanvasSize, false);
-        }
-        function updateCoords(e) {
-            pointerX =
-                (e.clientX || e.touches[0].clientX) -
-                canvasEl.getBoundingClientRect().left;
-            pointerY =
-                e.clientY ||
-                e.touches[0].clientY - canvasEl.getBoundingClientRect().top;
-        }
-        function setParticuleDirection(p) {
-            var angle = (anime.random(0, 360) * Math.PI) / 180;
-            var value = anime.random(50, 180);
-            var radius = [-1, 1][anime.random(0, 1)] * value;
-            return {
-                x: p.x + radius * Math.cos(angle),
-                y: p.y + radius * Math.sin(angle)
-            };
-        }
-        function createParticule(x, y) {
-            var p = {};
-            p.x = x;
-            p.y = y;
-            p.color = colors[anime.random(0, colors.length - 1)];
-            p.radius = anime.random(16, 32);
-            p.endPos = setParticuleDirection(p);
-            p.draw = function() {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-            };
-            return p;
-        }
-        function renderParticule(anim) {
-            for (var i = 0; i < anim.animatables.length; i++) {
-                anim.animatables[i].target.draw();
-            }
-        }
-
-        function animateParticules(x, y) {
-            //var circle = createCircle(x, y);
-            var particules = [];
-            for (var i = 0; i < numberOfParticules; i++) {
-                particules.push(createParticule(x, y));
-            }
-            anime.timeline().add({
-                targets: particules,
-                x: function(p) {
-                    return p.endPos.x;
-                },
-                y: function(p) {
-                    return p.endPos.y;
-                },
-                radius: 0.1,
-                duration: anime.random(1200, 1800),
-                easing: "easeOutExpo",
-                update: renderParticule
-            });
-        }
     }
     renderDisqusComment() {
         const disqusShortname = "kannagi-moe";
@@ -209,6 +92,7 @@ class Layout extends React.Component {
                     />
                     <meta charSet="UTF-8" />
                 </Head>
+                {!!this.props.renderNav && <NavigationBar />}
                 {!isMobile && (
                     <div>
                         <div
@@ -231,9 +115,6 @@ class Layout extends React.Component {
                             {this.props.renderComment &&
                                 this.renderDisqusComment()}
                         </div>
-                        <div className="foreground-canvas-container">
-                            <canvas id="foregroundCanvas" />
-                        </div>
                     </div>
                 )}
                 {isMobile && (
@@ -254,16 +135,26 @@ class Layout extends React.Component {
                         }
                         html,
                         body {
+                            -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
                             overflow-x: hidden;
                             margin: 0;
                             width: 100%;
-                            font-family: "Source Serif TC min";
-                            background-color: ${colors.lightYellow};
+                            -webkit-font-smoothing: subpixel-antialiased;
+                            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+                            {/* font-family: "Source Serif TC min"; */}
                         }
-                        ::-webkit-scrollbar {
-                            width: 0px;  /* remove scrollbar space */
-                            background: transparent;  /* optional: just make scrollbar invisible */
-                        }
+                        .tategaki {
+                    -webkit-writing-mode: vertical-rl;
+                    -ms-writing-mode: tb-rl;
+                    writing-mode: vertical-rl;
+                }
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  }
                     `}
                 </style>
                 <style jsx>
@@ -275,7 +166,6 @@ class Layout extends React.Component {
                             top: 0;
                             bottom: 0;
                             z-index: 9992;
-                            background-color: #ff0000;
                         }
                         .mobile-container {
                             display: flex;
@@ -291,16 +181,6 @@ class Layout extends React.Component {
                             min-width: 100vw;
                             height: 100vh;
                             justify-content: flex-end;
-                        }
-                        .foreground-canvas-container {
-                            position: fixed;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            top: 0;
-                            width: 100vw;
-                            height: 100vh;
-                            z-index: 9990;
                         }
                         .postfix-container {
                             width: 100vw;

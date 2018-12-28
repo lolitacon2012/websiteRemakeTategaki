@@ -1,4 +1,8 @@
 {
-    "myName":"紀葉清",
-    "myEnName":"Kino Hasumi"
+    "myNameTitle":"紀 葉清",
+    "btn_archive":"归档",
+    "btn_tag":"标签",
+    "btn_lab":"黑科技",
+    "btn_about":"关于",
+    "title_home": "紀葉清的杂记"
 }
