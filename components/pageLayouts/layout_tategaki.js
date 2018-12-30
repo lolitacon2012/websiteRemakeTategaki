@@ -3,8 +3,8 @@ import { isMobile } from "react-device-detect";
 import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
 import Disqus from "disqus-react";
 import NavigationBar from "../pageSections/navigationBar";
-import {isIe} from "../../utils/ieDetection";
-import swal from 'sweetalert';
+import { isIe } from "../../utils/ieDetection";
+import swal from "sweetalert";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -23,19 +23,18 @@ class Layout extends React.Component {
         this.renderDisqusComment = this.renderDisqusComment.bind(this);
     }
     componentDidMount() {
-        this.setState({isIe: isIe()})
-        if(isIe()){
+        this.setState({ isIe: isIe() });
+        if (isIe()) {
             swal({
                 title: "Internet Explorer Detected",
                 text: "This website does not support IE.",
                 icon: "warning",
                 buttons: "Download Chrome",
                 closeOnClickOutside: false,
-                closeOnEsc: false,
-              })
-              .then(() => {
+                closeOnEsc: false
+            }).then(() => {
                 window.location.href = "https://www.google.com/chrome/";
-              });
+            });
         }
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
@@ -113,8 +112,10 @@ class Layout extends React.Component {
                     />
                     <meta charSet="UTF-8" />
                 </Head>
-                {!!this.props.renderNav && <NavigationBar keepNavOpened={!!this.props.keepNavOpened} />}
-                {!!this.state.isIe && (<div className="full-page-cover"></div>)}
+                {!!this.props.renderNav && (
+                    <NavigationBar keepNavOpened={!!this.props.keepNavOpened} />
+                )}
+                {!!this.state.isIe && <div className="full-page-cover" />}
                 {!isMobile && (
                     <div>
                         <div
@@ -211,7 +212,7 @@ class Layout extends React.Component {
                         .full-page-cover {
                             width: 100vw;
                             height: 100vh;
-                            background: #FFFFFF;
+                            background: #ffffff;
                             position: fixed;
                             top: 0;
                             left: 0;

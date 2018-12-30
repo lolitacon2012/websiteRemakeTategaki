@@ -1,12 +1,12 @@
 import { colors } from "../colors";
 import Avatar from "../avatar";
 import { getText } from "../../utils/textService";
-import Router from 'next/router'
-const NavigationBar = ({keepNavOpened}) => (
+import Router from "next/router";
+const NavigationBar = ({ keepNavOpened }) => (
     <div className="outerContainer">
         <div className="setContainer">
             <Avatar size={42} border={false} />
-            {renderButton(getText("title_home"),() => Router.push('/'))}
+            {renderButton(getText("title_home"), () => Router.push("/"))}
         </div>
         <div className="setContainer">
             {renderButton(getText("btn_archive"))}
@@ -24,7 +24,7 @@ const NavigationBar = ({keepNavOpened}) => (
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    background:  ${!!keepNavOpened ? "0" : colors.imoPink};
+                    background: ${!!keepNavOpened ? "0" : colors.imoPink};
                     top: ${!!keepNavOpened ? "0" : "-3rem"};
                     transition: 0.4s;
                     padding-left: 4%;

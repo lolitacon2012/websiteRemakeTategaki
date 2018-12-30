@@ -1,24 +1,39 @@
 import { colors } from "../colors";
 import { getText } from "../../utils/textService";
-import Router from 'next/router'
+import Router from "next/router";
 const ArticleCard = ({ data }) => (
     <div className="container">
         {!!data.image && <div className="image-container" />}
-    <div className="outerContainer tategaki">
-        <div className="timeTagContainer">
-            <p className="timetext">{data.time}</p>
-            <div className="tagContainer">
-                {data.tags.map(t => {
-                    return <p className="tag" key={t.toString() + Math.random()}>{t}</p>;
-                })}
+        <div className="outerContainer tategaki">
+            <div className="timeTagContainer">
+                <p className="timetext">{data.time}</p>
+                <div className="tagContainer">
+                    {data.tags.map(t => {
+                        return (
+                            <p
+                                className="tag"
+                                key={t.toString() + Math.random()}
+                            >
+                                {t}
+                            </p>
+                        );
+                    })}
+                </div>
             </div>
+            <div
+                className="titleContainer"
+                onClick={() =>
+                    Router.push({
+                        pathname: "/article",
+                        query: { id: data.id }
+                    })
+                }
+            >
+                <h2>{data.title}</h2>
+            </div>
+            <p className="abstract">{data.abstract}</p>
         </div>
-        <div className="titleContainer" onClick={() => Router.push({pathname: '/article', query: { id: data.id }})}>
-            <h2>{data.title}</h2>
-        </div>
-        <p className="abstract">{data.abstract}</p>
-    </div>
-    <style jsx>
+        <style jsx>
             {`
                 .outerContainer {
                     width: auto;
@@ -28,7 +43,7 @@ const ArticleCard = ({ data }) => (
                     align-items: start;
 
                     flex-direction: column;
-                    flex:1;
+                    flex: 1;
                 }
                 .timeTagContainer {
                     height: 100%;
@@ -87,7 +102,7 @@ const ArticleCard = ({ data }) => (
                 }
                 .image-container {
                     width: 30rem;
-                    flex:0.6;
+                    flex: 0.6;
                     border-radius: 10px;
                     background-image: url(${data.image});
                     background-repeat: no-repeat;
@@ -100,7 +115,7 @@ const ArticleCard = ({ data }) => (
                     letter-spacing: 1.66px;
                     cursor: pointer;
                 }
-                .container{
+                .container {
                     height: 70%;
                     display: flex;
                     align-items: center;
@@ -110,7 +125,7 @@ const ArticleCard = ({ data }) => (
                 }
             `}
         </style>
-        </div>
+    </div>
 );
 
 export default ArticleCard;

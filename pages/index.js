@@ -8,10 +8,8 @@ const Index = props => (
     <div className="outer-container">
         <Layout renderComment={false} renderNav={true} keepNavOpened={true}>
             <div className="articles-container">
-                {getArticleList(5).map((data)=>{
-                    return (
-                        <ArticleCard data={data} key={data.id} ></ArticleCard>
-                    )
+                {getArticleList(5).map(data => {
+                    return <ArticleCard data={data} key={data.id} />;
                 })}
                 {/* <ArticleCard
                     data={{
