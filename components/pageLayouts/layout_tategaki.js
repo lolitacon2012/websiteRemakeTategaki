@@ -3,6 +3,8 @@ import { isMobile } from "react-device-detect";
 import font from "../../build/fonts/SourceHanSerifCN-Light.woff";
 import Disqus from "disqus-react";
 import NavigationBar from "../pageSections/navigationBar";
+import {isIe} from "../../utils/ieDetection";
+import swal from 'sweetalert';
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +13,8 @@ class Layout extends React.Component {
         this.state = {
             contentRightOffset: 0,
             fakeContentHeight: 0,
-            contentTopOffset: 0
+            contentTopOffset: 0,
+            isIe: false
         };
         this.handleScroll = this.handleScroll.bind(this);
         this.handleScrollViewportChange = this.handleScrollViewportChange.bind(
@@ -20,9 +23,27 @@ class Layout extends React.Component {
         this.renderDisqusComment = this.renderDisqusComment.bind(this);
     }
     componentDidMount() {
+        this.setState({isIe: isIe()})
+        if(isIe()){
+            swal({
+                title: "Internet Explorer Detected",
+                text: "This website does not support IE.",
+                icon: "warning",
+                buttons: "Download Chrome",
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+              })
+              .then(() => {
+                window.location.href = "https://www.google.com/chrome/";
+              });
+        }
         this.handleScrollViewportChange();
         window.addEventListener("resize", this.handleScrollViewportChange);
         window.addEventListener("scroll", this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleScrollViewportChange);
+        window.removeEventListener("scroll", this.handleScroll);
     }
     handleScroll() {
         const doc = document.documentElement;
@@ -92,7 +113,8 @@ class Layout extends React.Component {
                     />
                     <meta charSet="UTF-8" />
                 </Head>
-                {!!this.props.renderNav && <NavigationBar />}
+                {!!this.props.renderNav && <NavigationBar keepNavOpened={!!this.props.keepNavOpened} />}
+                {!!this.state.isIe && (<div className="full-page-cover"></div>)}
                 {!isMobile && (
                     <div>
                         <div
@@ -142,8 +164,9 @@ class Layout extends React.Component {
                             margin: 0;
                             width: 100%;
                             -webkit-font-smoothing: subpixel-antialiased;
-                            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
-                            {/* font-family: "Source Serif TC min"; */}
+                            font-family: -apple-system, "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+                            {/* font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+                            font-family: "Source Serif TC min"; */}
                         }
                         .tategaki {
                     -webkit-writing-mode: vertical-rl;
@@ -184,6 +207,15 @@ class Layout extends React.Component {
                         }
                         .postfix-container {
                             width: 100vw;
+                        }
+                        .full-page-cover {
+                            width: 100vw;
+                            height: 100vh;
+                            background: #FFFFFF;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            z-index: 9999;
                         }
                     `}
                 </style>

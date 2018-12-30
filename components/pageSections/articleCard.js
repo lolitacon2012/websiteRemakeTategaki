@@ -1,47 +1,51 @@
 import { colors } from "../colors";
 import { getText } from "../../utils/textService";
+import Router from 'next/router'
 const ArticleCard = ({ data }) => (
-    <div className="outerContainer">
+    <div className="container">
+        {!!data.image && <div className="image-container" />}
+    <div className="outerContainer tategaki">
         <div className="timeTagContainer">
-            <p className="tategaki timetext">{data.time}</p>
+            <p className="timetext">{data.time}</p>
             <div className="tagContainer">
                 {data.tags.map(t => {
-                    return <p className="tategaki tag">{t}</p>;
+                    return <p className="tag" key={t.toString() + Math.random()}>{t}</p>;
                 })}
             </div>
         </div>
-        <div className="titleContainer">
-            <h2 className="tategaki">{data.title}</h2>
-            {!!data.image && <div className="image-container" />}
+        <div className="titleContainer" onClick={() => Router.push({pathname: '/article', query: { id: data.id }})}>
+            <h2>{data.title}</h2>
         </div>
-        <div className="abstractContainer">
-            <p className="tategaki">{data.abstract}</p>
-        </div>
-        <style jsx>
+        <p className="abstract">{data.abstract}</p>
+    </div>
+    <style jsx>
             {`
                 .outerContainer {
                     width: auto;
-                    height: 66%;
-                    padding: 0 12px 0 48px;
+
                     display: flex;
                     justify-content: space-between;
                     align-items: start;
-                    margin: 0 36px;
-                    flex-direction: row-reverse;
+
+                    flex-direction: column;
+                    flex:1;
                 }
                 .timeTagContainer {
                     height: 100%;
                     display: flex;
                     justify-content: space-between;
-                    flex-direction: column;
+                    flex-direction: row;
                     padding: 0;
                     margin: 0;
                     align-items: center;
                 }
                 .timetext {
-                    font-weight: lighter;
-                    font-size: 0.8rem;
-                    color: ${colors.gray};
+                    font-weight: normal;
+                    font-size: 1rem;
+                    color: ${colors.darkGray};
+                }
+                .tagContainer {
+                    display: flex;
                 }
                 .tag {
                     font-weight: bolder;
@@ -51,6 +55,7 @@ const ArticleCard = ({ data }) => (
                     cursor: pointer;
                     transition: 0.3s;
                     margin: 1rem 0;
+                    letter-spacing: 2px;
                 }
                 .tag:hover {
                     color: ${colors.imoPink};
@@ -59,7 +64,7 @@ const ArticleCard = ({ data }) => (
                 h2 {
                     margin: 0 1rem;
                     padding: 1rem 0.8rem;
-                    font-size: 2.4rem;
+                    font-size: 2.6rem;
                     letter-spacing: 4px;
                     font-weight: lighter;
                     cursor: pointer;
@@ -73,7 +78,7 @@ const ArticleCard = ({ data }) => (
                 .titleContainer {
                     height: 100%;
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
                     padding: 0;
@@ -81,13 +86,13 @@ const ArticleCard = ({ data }) => (
                     min-width: 6rem;
                 }
                 .image-container {
-                    border-radius: 100%;
-                    width: 6rem;
-                    height: 6rem;
+                    width: 30rem;
+                    flex:0.6;
+                    border-radius: 10px;
                     background-image: url(${data.image});
                     background-repeat: no-repeat;
                     background-size: cover;
-                    margin-bottom: 1rem;
+                    margin-bottom: 2rem;
                 }
                 p {
                     line-height: 2rem;
@@ -95,9 +100,17 @@ const ArticleCard = ({ data }) => (
                     letter-spacing: 1.66px;
                     cursor: pointer;
                 }
+                .container{
+                    height: 70%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    padding: 0 12px 0 48px;
+                    margin: 0 36px;
+                }
             `}
         </style>
-    </div>
+        </div>
 );
 
 export default ArticleCard;

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "node prebuild.js",
     "dev": "node prebuild.js && next",
     "build": "node prebuild.js && next build",
     "start": "node prebuild.js && next start",
@@ -35,7 +36,8 @@
     "react": "^16.5.1",
     "react-device-detect": "^1.6.1",
     "react-dom": "^16.5.1",
-    "styled-jsx": "^3.0.2"
+    "styled-jsx": "^3.0.2",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "husky": "^1.1.2",

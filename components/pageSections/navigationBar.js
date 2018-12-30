@@ -1,11 +1,12 @@
 import { colors } from "../colors";
 import Avatar from "../avatar";
 import { getText } from "../../utils/textService";
-const NavigationBar = () => (
+import Router from 'next/router'
+const NavigationBar = ({keepNavOpened}) => (
     <div className="outerContainer">
         <div className="setContainer">
             <Avatar size={42} border={false} />
-            {renderButton(getText("title_home"))}
+            {renderButton(getText("title_home"),() => Router.push('/'))}
         </div>
         <div className="setContainer">
             {renderButton(getText("btn_archive"))}
@@ -18,12 +19,22 @@ const NavigationBar = () => (
                 .outerContainer {
                     width: 100%;
                     position: fixed;
-                    top: 0;
+                    height: 4rem;
                     z-index: 9999;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    margin-top: 0.75rem;
+                    background:  ${!!keepNavOpened ? "0" : colors.imoPink};
+                    top: ${!!keepNavOpened ? "0" : "-3rem"};
+                    transition: 0.4s;
+                    padding-left: 4%;
+                    padding-right: 4%;
+                    padding-bottom: ${!!keepNavOpened ? "0" : "1rem"};
+                }
+                .outerContainer:hover {
+                    padding-bottom: 0;
+                    top: 0px;
+                    background: ${!!keepNavOpened ? "none" : "#FFFFFF"};
                 }
                 .setContainer {
                     display: flex;
@@ -42,7 +53,7 @@ const renderButton = (title, action) => {
                 {`
                     .title {
                         font-size: 1.2rem;
-                        font-weight: bolder;
+                        font-weight: bold;
                         margin: 0 0 0 12px;
                         color: ${colors.imoPink};
                         justify: end;

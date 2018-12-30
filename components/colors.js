@@ -6,5 +6,6 @@ export const colors = {
     imoPink: "#F09DC0",
     imoBlue: "#4B8FED",
     imoBluePale: "rgba(75, 129, 237,0.3)",
-    gray: "#999999"
+    gray: "#999999",
+    darkGray: "#666666"
 };

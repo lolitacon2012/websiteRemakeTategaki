@@ -1,34 +1,40 @@
-import fetch from "isomorphic-unfetch";
 import Layout from "../components/pageLayouts/layout_tategaki";
 import ArticleCard from "../components/pageSections/articleCard";
-import AdaptiveContainer from "../components/pageSections/adaptiveContainer";
 import Avatar from "../components/avatar";
 import { getText } from "../utils/textService";
 import { colors } from "../components/colors";
+import { getArticleList } from "../utils/articleService";
 const Index = props => (
     <div className="outer-container">
-        <Layout renderComment={false} renderNav={true}>
+        <Layout renderComment={false} renderNav={true} keepNavOpened={true}>
             <div className="articles-container">
-                <ArticleCard
+                {getArticleList(5).map((data)=>{
+                    return (
+                        <ArticleCard data={data} key={data.id} ></ArticleCard>
+                    )
+                })}
+                {/* <ArticleCard
                     data={{
-                        title: "这是一个测试用标题",
+                        title: "超级短标题",
                         time: "二零一八年 十二月 二十九日",
                         tags: ["标签", "标签", "标签"],
                         abstract:
                             "2016 几乎一整年没有更新过博客，平时都在忙些什么呢？空闲时候偶尔会有一些奇怪想法，但大多数都在一开始就被否定，原因是觉得根本没有用处，造轮子是需要花时间的。如果的确有实际需要而没有特别好的现成品，我就会很兴奋，想马上就去实现，想比别人做的更好，更简单易用。希望以后依然能这样一直保持好奇与创作冲动，不枉自己喜欢过的那些电影，听过的音乐，还有一切美好。",
-                        image: undefined
+                        image: undefined,
+                        id: "tuva12",
                     }}
                 />
                 <ArticleCard
                     data={{
-                        title: "这是一个测试用标题",
+                        title: "超级短标题",
                         time: "二零一八年 十二月 二十九日",
                         tags: ["标签", "标签", "标签"],
                         abstract:
                             "2016 几乎一整年没有更新过博客，平时都在忙些什么呢？空闲时候偶尔会有一些奇怪想法，但大多数都在一开始就被否定，原因是觉得根本没有用处，造轮子是需要花时间的。如果的确有实际需要而没有特别好的现成品，我就会很兴奋，想马上就去实现，想比别人做的更好，更简单易用。希望以后依然能这样一直保持好奇与创作冲动，不枉自己喜欢过的那些电影，听过的音乐，还有一切美好。",
-                        image: "/static/image/test_image.jpg"
+                        image: "/static/image/test_image.jpg",
+                        id: "tuva1",
                     }}
-                />
+                /> */}
             </div>
             <div className="right-intro-container">
                 <img className="sakuraImage" src="/static/image/sakura.png" />
@@ -62,13 +68,8 @@ const Index = props => (
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
-                    width: auto;
-                    min-width: 30vw;
-                    max-width: 40vw;
+                    width: 100vw;
                     padding: 0;
-                    -moz-box-shadow: inset 36px 0 32px -32px #888888;
-                    -webkit-box-shadow: inset 36px 0 32px -32px #888888;
-                    box-shadow: inset 36px 0 32px -32px #888888;
                 }
                 .articles-container {
                     display: flex;
