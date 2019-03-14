@@ -29,7 +29,7 @@ const Index = props => (
         <style jsx>
             {`
                 h1 {
-                    font-size: ${isMobile?'2.4rem':'3rem'};
+                    font-size: ${isMobile ? "2.4rem" : "3rem"};
                     font-weight: 100;
                     letter-spacing: 1rem;
                 }
@@ -42,31 +42,31 @@ const Index = props => (
                 .right-intro-container {
                     display: flex;
                     flex-direction: column;
-                    justify-content: ${isMobile?'flex-start':'center'};
+                    justify-content: ${isMobile ? "flex-start" : "center"};
                     align-items: center;
-                    height: ${isMobile ? 'auto' : '100vh'};
+                    height: ${isMobile ? "auto" : "100vh"};
                     width: 100vw;
                     padding: 0;
-                    padding-bottom: ${isMobile ? '4rem' : '0'};
+                    padding-bottom: ${isMobile ? "4rem" : "0"};
                 }
                 .articles-container {
                     display: flex;
-                    flex-direction: ${isMobile ? 'column' : 'row'};
+                    flex-direction: ${isMobile ? "column" : "row"};
                     justify-content: center;
                     align-items: center;
-                    height: ${isMobile ? 'auto' : '100vh'};
-                    width: ${isMobile ? '100vw' : 'auto'};
-                    padding: ${isMobile ? '4vh' : '0'} ${isMobile ? '0' : '5vw'} ;
+                    height: ${isMobile ? "auto" : "100vh"};
+                    width: ${isMobile ? "100vw" : "auto"};
+                    padding: ${isMobile ? "4vh" : "0"} ${isMobile ? "0" : "5vw"};
                 }
                 .firstCharBlackBg::first-letter {
                     background: #000000;
                     color: #ffffff;
-                    padding-top: ${isMobile?'0.6rem':'0.75rem'};
+                    padding-top: ${isMobile ? "0.6rem" : "0.75rem"};
                     border-radius: 10px;
                 }
                 .titleName {
-                    margin-bottom: ${isMobile?'2vh':'7vh'};
-                    margin-top: ${isMobile?'6rem':'0'};
+                    margin-bottom: ${isMobile ? "2vh" : "7vh"};
+                    margin-top: ${isMobile ? "6rem" : "0"};
                 }
                 .avatarContainer {
                     margin-bottom: 3.5vh;

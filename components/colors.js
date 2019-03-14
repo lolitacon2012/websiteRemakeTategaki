@@ -10,5 +10,5 @@ export const colors = {
     lightGray: "#BBBBBB",
     darkGray: "#666666",
     white: "#EFEFEF",
-    darkGreen: "#7f8c8d",
+    darkGreen: "#7f8c8d"
 };

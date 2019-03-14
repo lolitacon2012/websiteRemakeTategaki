@@ -5,10 +5,12 @@ import Router from "next/router";
 import { isMobile } from "react-device-detect";
 const NavigationBar = ({ keepNavOpened }) => (
     <div className="outerContainer">
-        {!isMobile && <div className="setContainer">
-            <Avatar size={42} border={false} />
-            {renderButton(getText("title_home"), () => Router.push("/"))}
-        </div>}
+        {!isMobile && (
+            <div className="setContainer">
+                <Avatar size={42} border={false} />
+                {renderButton(getText("title_home"), () => Router.push("/"))}
+            </div>
+        )}
         <div className="setContainer">
             {!!isMobile && renderButton(getText("btn_home"))}
             {renderButton(getText("btn_archive"))}
@@ -21,10 +23,12 @@ const NavigationBar = ({ keepNavOpened }) => (
                 .outerContainer {
                     width: 100%;
                     position: fixed;
-                    height: ${!!isMobile ? `2.8rem` : '4rem'};
+                    height: ${!!isMobile ? `2.8rem` : "4rem"};
                     z-index: 9999;
                     display: flex;
-                    justify-content: ${!!isMobile ? `space-around` : 'space-between'};
+                    justify-content: ${!!isMobile
+                        ? `space-around`
+                        : "space-between"};
                     align-items: center;
                     background: ${!!isMobile && colors.imoPink};
                     top: ${!!keepNavOpened ? "0" : "-3rem"};
@@ -49,11 +53,11 @@ const renderButton = (title, action) => {
             <style jsx>
                 {`
                     .title {
-                        font-size: ${!!isMobile ? '1rem' : '1.2rem'};
+                        font-size: ${!!isMobile ? "1rem" : "1.2rem"};
                         font-weight: bold;
                         margin: 0 6px;
                         color: ${!!isMobile ? colors.white : colors.imoPink};
-                        justify: 'end';
+                        justify: "end";
                         cursor: pointer;
                         transition: 0.3s;
                     }
